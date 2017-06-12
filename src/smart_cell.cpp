@@ -40,6 +40,7 @@
 #include <drivers/gpio.h>
 
 #include "smart_cell.h"
+#include "packet.h"
 
 SmartCell::SmartCell()
 {
@@ -61,20 +62,36 @@ void SmartCell::Run()
     
     while(1)
     {
+        Packet pkt;
+        
         Reading v = volt->Read(VOLTMETER_CH_0);
         //Reading i = amp->Read(AMMETER_CH_0);
+        pkt += v.r0;
+        pkt += v.r1;
         _delay_ms(50);
         
         v = volt->Read(VOLTMETER_CH_1);
+        pkt += v.r0;
+        pkt += v.r1;
         _delay_ms(50);
 
         v = volt->Read(VOLTMETER_CH_2);
+        pkt += v.r0;
+        pkt += v.r1;
         _delay_ms(50);
         
         v = volt->Read(VOLTMETER_CH_3);
+        pkt += v.r0;
+        pkt += v.r1;
         _delay_ms(50);
         
-        //uart->Write();
+        uint8_t pkt_buf[PACKET_MAX_SIZE];
+        pkt.get(pkt_buf);
+        
+        for(uint8_t i=0; i<pkt.size();i++)
+        {
+            uart->WriteByte(pkt_buf[i]);
+        }
         
         _delay_ms(800);
         
