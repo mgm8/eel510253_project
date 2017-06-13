@@ -42,6 +42,8 @@
 #include <drivers/74hc4052.h>
 #include <drivers/adc.h>
 
+#include "reading.h"
+
 #define VOLTMETER_ADC_PORT_0   ADC_PORT_0
 #define VOLTMETER_ADC_PORT_1   ADC_PORT_1
 
@@ -49,54 +51,6 @@
 #define VOLTMETER_CH_1         _74HC4052_CH_A1
 #define VOLTMETER_CH_2         _74HC4052_CH_A2
 #define VOLTMETER_CH_3         _74HC4052_CH_A3
-
-/**
- * \struct Reading
- * 
- * \brief A struct to store the readings from a given channel.
- */
-struct Reading
-{
-    double r0;      /**< . */
-    double r1;      /**< . */
-    /**
-     * \brief Struct constructor.
-     * 
-     * \param a is the value of the first reading.
-     * \param b is the value of the seconds reading.
-     * 
-     * \return None
-     */
-    Reading(double a, double b)
-    {
-        r0 = a;
-        r1 = b;
-    }
-    /**
-     * \brief Struct constructor.
-     * 
-     * \param R
-     * 
-     * \return None
-     */
-/*    Reading(Reading &R)
-    {
-        r0 = R.r0;
-        r1 = R.r1;
-    }*/
-    /**
-     * \brief Struct operator =
-     * 
-     * \param R is another Reading object.
-     * 
-     * \return A pointer to this struct.
-     */
-    void operator = (Reading R)
-    {
-        r0 = R.r0;
-        r1 = R.r1;
-    }
-};
 
 /**
  * \class Voltmeter
@@ -133,7 +87,7 @@ class Voltmeter
          */
         ~Voltmeter();
         /**
-         * \brief 
+         * \brief Sets the pins of the voltmeter.
          * 
          * \param s0
          * \param s1

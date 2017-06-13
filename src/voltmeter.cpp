@@ -68,13 +68,14 @@ Reading Voltmeter::Read(uint8_t channel)
     mux.Enable();
     
     // Reading the voltages from the given channel
-    double v0 = adc_0.ReadVoltage(VOLTMETER_ADC_PORT_0);
-    double v1 = adc_1.ReadVoltage(VOLTMETER_ADC_PORT_1);
+    Reading reading;
+    reading.r0 = adc_0.ReadVoltage(VOLTMETER_ADC_PORT_0);
+    reading.r1 = adc_1.ReadVoltage(VOLTMETER_ADC_PORT_1);
     
     // Disabling the input of the mux.
     mux.Disable();
     
-    return Reading(v0, v1);
+    return reading;
 }
 
 
