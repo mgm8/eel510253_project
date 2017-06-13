@@ -45,10 +45,7 @@ _74HC4051::_74HC4051()
 _74HC4051::_74HC4051(uint8_t s0_pin, uint8_t s1_pin, uint8_t s2_pin, uint8_t en_pin)
 {
     // Setting S0, S1, S2 and EN pins as output pins
-    s0 = new GPIOAsOutput(s0_pin);
-    s1 = new GPIOAsOutput(s1_pin);
-    s2 = new GPIOAsOutput(s2_pin);
-    en = new GPIOAsOutput(en_pin);
+    this->SetPins(s0_pin, s1_pin, s2_pin, en_pin);
     
     // Initializing with the input disabled
     this->Disable();
@@ -64,11 +61,14 @@ _74HC4051::~_74HC4051()
     
     // Leaving with channel A0 selected
     this->SetChannel(_74HC4051_CH_A0);
-    
-    delete s0;
-    delete s1;
-    delete s2;
-    delete en;
+}
+
+void _74HC4051::SetPins(uint8_t s0_pin, uint8_t s1_pin, uint8_t s2_pin, uint8_t en_pin)
+{
+    s0.SetPin(s0_pin);
+    s1.SetPin(s1_pin);
+    s2.SetPin(s2_pin);
+    en.SetPin(en_pin);
 }
 
 void _74HC4051::SetChannel(uint8_t channel)
@@ -76,60 +76,60 @@ void _74HC4051::SetChannel(uint8_t channel)
     switch(channel)
     {
         case _74HC4051_CH_A0:   // Channel A0
-            s0->Clear();
-            s1->Clear();
-            s2->Clear();
+            s0.Clear();
+            s1.Clear();
+            s2.Clear();
             break;
         case _74HC4051_CH_A1:   // Channel A1
-            s0->Set();
-            s1->Clear();
-            s2->Clear();
+            s0.Set();
+            s1.Clear();
+            s2.Clear();
             break;
         case _74HC4051_CH_A2:   // Channel A2
-            s0->Clear();
-            s1->Set();
-            s2->Clear();
+            s0.Clear();
+            s1.Set();
+            s2.Clear();
             break;
         case _74HC4051_CH_A3:   // Channel A3
-            s0->Set();
-            s1->Set();
-            s2->Clear();
+            s0.Set();
+            s1.Set();
+            s2.Clear();
             break;
         case _74HC4051_CH_A4:   // Channel A4
-            s0->Clear();
-            s1->Clear();
-            s2->Set();
+            s0.Clear();
+            s1.Clear();
+            s2.Set();
             break;
         case _74HC4051_CH_A5:   // Channel A5
-            s0->Set();
-            s1->Clear();
-            s2->Set();
+            s0.Set();
+            s1.Clear();
+            s2.Set();
             break;
         case _74HC4051_CH_A6:   // Channel A6
-            s0->Clear();
-            s1->Set();
-            s2->Set();
+            s0.Clear();
+            s1.Set();
+            s2.Set();
             break;
         case _74HC4051_CH_A7:   // Channel A7
-            s0->Set();
-            s1->Set();
-            s2->Set();
+            s0.Set();
+            s1.Set();
+            s2.Set();
             break;
         default:                // Channel A0
-            s0->Clear();
-            s1->Clear();
-            s2->Clear();
+            s0.Clear();
+            s1.Clear();
+            s2.Clear();
     }
 }
 
 void _74HC4051::Enable()
 {
-    en->Clear();
+    en.Clear();
 }
 
 void _74HC4051::Disable()
 {
-    en->Set();
+    en.Set();
 }
 
 //! \} End of mux_8x1 implementation group

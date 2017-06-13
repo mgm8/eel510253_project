@@ -44,9 +44,7 @@ Ammeter::Ammeter()
 
 Ammeter::Ammeter(uint8_t s0, uint8_t s1, uint8_t en)
 {
-    adc_0 = new ADConverter;
-    adc_1 = new ADConverter;
-    mux = new _74HC4052(s0, s1, en);
+    this->SetPins(s0, s1, en);
 }
 
 double Ammeter::Read(uint8_t channel)

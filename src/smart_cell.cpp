@@ -44,16 +44,14 @@
 
 SmartCell::SmartCell()
 {
-    volt = new Voltmeter(P1_PIN, P2_PIN, P3_PIN);
-    amp = new Ammeter(P4_PIN, P5_PIN, P6_PIN);
-    uart = new UART(9600);
+    volt.SetPins(P2_PIN, P3_PIN, P4_PIN);
+    amp.SetPins(P5_PIN, P6_PIN, P7_PIN);
+    uart.Init(9600);
 }
 
 SmartCell::~SmartCell()
 {
-    delete volt;
-    delete amp;
-    delete uart;
+    
 }
 
 void SmartCell::Run()
@@ -64,23 +62,23 @@ void SmartCell::Run()
     {
         Packet pkt;
         
-        Reading v = volt->Read(VOLTMETER_CH_0);
-        //Reading i = amp->Read(AMMETER_CH_0);
+        Reading v = volt.Read(VOLTMETER_CH_0);
+        //Reading i = amp.Read(AMMETER_CH_0);
         pkt += v.r0;
         pkt += v.r1;
         _delay_ms(50);
         
-        v = volt->Read(VOLTMETER_CH_1);
+        v = volt.Read(VOLTMETER_CH_1);
         pkt += v.r0;
         pkt += v.r1;
         _delay_ms(50);
 
-        v = volt->Read(VOLTMETER_CH_2);
+        v = volt.Read(VOLTMETER_CH_2);
         pkt += v.r0;
         pkt += v.r1;
         _delay_ms(50);
         
-        v = volt->Read(VOLTMETER_CH_3);
+        v = volt.Read(VOLTMETER_CH_3);
         pkt += v.r0;
         pkt += v.r1;
         _delay_ms(50);
@@ -88,9 +86,9 @@ void SmartCell::Run()
         uint8_t pkt_buf[PACKET_MAX_SIZE];
         pkt.get(pkt_buf);
         
-        for(uint8_t i=0; i<pkt.size();i++)
+        for(uint8_t i=0; i<pkt.size(); i++)
         {
-            uart->WriteByte(pkt_buf[i]);
+            uart.WriteByte(pkt_buf[i]);
         }
         
         _delay_ms(800);

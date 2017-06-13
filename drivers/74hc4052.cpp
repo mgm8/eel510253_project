@@ -44,11 +44,8 @@ _74HC4052::_74HC4052()
 
 _74HC4052::_74HC4052(uint8_t s0_pin, uint8_t s1_pin, uint8_t en_pin)
 {
-    // Setting S0, S1, S2 and EN pins as output pins
-    s0 = new GPIOAsOutput(s0_pin);
-    s1 = new GPIOAsOutput(s1_pin);
-    //s2 = NULL;
-    en = new GPIOAsOutput(en_pin);
+    // Setting S0, S1 and EN pins as output pins
+    this->SetPins(s0_pin, s1_pin, en_pin);
     
     // Initializing with the input disabled
     this->Disable();
@@ -64,10 +61,13 @@ _74HC4052::~_74HC4052()
     
     // Leaving with channel A0 selected
     this->SetChannel(_74HC4052_CH_A0);
-    
-    delete s0;
-    delete s1;
-    delete en;
+}
+
+void _74HC4052::SetPins(uint8_t s0_pin, uint8_t s1_pin, uint8_t en_pin)
+{
+    s0.SetPin(s0_pin);
+    s1.SetPin(s1_pin);
+    en.SetPin(en_pin);
 }
 
 void _74HC4052::SetChannel(uint8_t channel)
@@ -75,24 +75,24 @@ void _74HC4052::SetChannel(uint8_t channel)
     switch(channel)
     {
         case _74HC4052_CH_A0:   // Channel A0
-            s0->Clear();
-            s1->Clear();
+            s0.Clear();
+            s1.Clear();
             break;
         case _74HC4052_CH_A1:   // Channel A1
-            s0->Set();
-            s1->Clear();
+            s0.Set();
+            s1.Clear();
             break;
         case _74HC4052_CH_A2:   // Channel A2
-            s0->Clear();
-            s1->Set();
+            s0.Clear();
+            s1.Set();
             break;
         case _74HC4052_CH_A3:   // Channel A3
-            s0->Set();
-            s1->Set();
+            s0.Set();
+            s1.Set();
             break;
         default:                // Channel A0
-            s0->Clear();
-            s1->Clear();
+            s0.Clear();
+            s1.Clear();
     }
 }
 

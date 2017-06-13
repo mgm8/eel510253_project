@@ -47,13 +47,9 @@
  */
 int main()
 {
-    SmartCell *smart_cell;
+    SmartCell smart_cell;
     
-    smart_cell = new SmartCell();
-    
-    smart_cell->Run();
-    
-    delete smart_cell;
+    smart_cell.Run();
     
     return 0;
 }

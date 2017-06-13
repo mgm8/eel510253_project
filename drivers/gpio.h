@@ -151,6 +151,12 @@ class GPIOAsOutput: public GPIO
         /**
          * \brief 
          * 
+         * \return None
+         */
+        GPIOAsOutput();
+        /**
+         * \brief 
+         * 
          * \param p
          * 
          * \return None
@@ -175,6 +181,12 @@ class GPIOAsOutput: public GPIO
 class GPIOAsInput: public GPIO
 {
     public:
+        /**
+         * \brief 
+         * 
+         * \return None
+         */
+        GPIOAsInput();
         /**
          * \brief 
          * 

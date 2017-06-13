@@ -51,9 +51,9 @@
  */
 class SmartCell
 {
-        Voltmeter *volt;    /**< . */
-        Ammeter *amp;       /**< . */
-        UART *uart;         /**< . */
+        Voltmeter volt;     /**< . */
+        Ammeter amp;        /**< . */
+        UART uart;          /**< . */
     public:
         /**
          * \brief 

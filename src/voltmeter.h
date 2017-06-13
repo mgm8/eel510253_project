@@ -106,9 +106,9 @@ struct Reading
 class Voltmeter
 {
     protected:
-        ADConverter *adc_0;         /**< . */
-        ADConverter *adc_1;         /**< . */
-        _74HC4052 *mux;             /**< . */
+        ADConverter adc_0;      /**< . */
+        ADConverter adc_1;      /**< . */
+        _74HC4052 mux;          /**< . */
     public:
         /**
          * \brief 
@@ -132,6 +132,16 @@ class Voltmeter
          * \return None
          */
         ~Voltmeter();
+        /**
+         * \brief 
+         * 
+         * \param s0
+         * \param s1
+         * \param en
+         * 
+         * \return None
+         */
+        void SetPins(uint8_t s0, uint8_t s1, uint8_t en);
         /**
          * \brief Reads the voltage from the voltmeter (in V).
          * 

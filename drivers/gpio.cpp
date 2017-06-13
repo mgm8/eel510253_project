@@ -407,6 +407,11 @@ bool GPIO::Read()
 //-- GPIOAsOutput ------------------------------------------
 //##########################################################
 
+GPIOAsOutput::GPIOAsOutput()
+{
+    this->SetDirection(GPIO_AS_OUTPUT);
+}
+
 GPIOAsOutput::GPIOAsOutput(uint8_t p)
 {
     this->SetPin(p);
@@ -424,6 +429,11 @@ GPIOAsOutput::GPIOAsOutput(uint8_t p, uint8_t dir)
 //##########################################################
 //-- GPIOAsInput -------------------------------------------
 //##########################################################
+
+GPIOAsInput::GPIOAsInput()
+{
+    this->SetDirection(GPIO_AS_INPUT);
+}
 
 GPIOAsInput::GPIOAsInput(uint8_t p)
 {

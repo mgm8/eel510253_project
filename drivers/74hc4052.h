@@ -77,9 +77,9 @@ class _74HC4052: public _74HC4051
          * 
          * In the constructor, the initialization of the enable and select pins are made.
          * 
-         * \param s0_pin is the S0 pin on the Arduino Uno (see "utils/arduino_uno_pins.h").
-         * \param s1_Pin is the S1 pin on the Arduino Uno (see "utils/arduino_uno_pins.h").
-         * \param en_pin is the EN pin on the Arduino Uno (see "utils/arduino_uno_pins.h").
+         * \param s0_pin is the S0 pin on the Arduino Uno (see "arduino_uno_pins.h").
+         * \param s1_Pin is the S1 pin on the Arduino Uno (see "arduino_uno_pins.h").
+         * \param en_pin is the EN pin on the Arduino Uno (see "arduino_uno_pins.h").
          * 
          * \return None
          */
@@ -92,6 +92,16 @@ class _74HC4052: public _74HC4051
          * \return None
          */
         ~_74HC4052();
+        /**
+         * \brief Sets the pins.
+         * 
+         * \param s0_pin is the S0 pin on the Arduino Uno (see "arduino_uno_pins.h").
+         * \param s1_pin is the S1 pin on the Arduino Uno (see "arduino_uno_pins.h").
+         * \param en_pin is the EN pin on the Arduino Uno (see "arduino_uno_pins.h").
+         * 
+         * \return None
+         */
+        void SetPins(uint8_t s0_pin, uint8_t s1_pin, uint8_t en_pin);
         /**
          * \brief Selects a channel of the input.
          * 

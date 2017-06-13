@@ -46,32 +46,33 @@ Voltmeter::Voltmeter()
 
 Voltmeter::Voltmeter(uint8_t s0, uint8_t s1, uint8_t en)
 {
-    adc_0 = new ADConverter;
-    adc_1 = new ADConverter;
-    mux = new _74HC4052(s0, s1, en);
+    this->SetPins(s0, s1, en);
 }
 
 Voltmeter::~Voltmeter()
 {
-    delete adc_0;
-    delete adc_1;
-    delete mux;
+    
+}
+
+void Voltmeter::SetPins(uint8_t s0, uint8_t s1, uint8_t en)
+{
+    mux.SetPins(s0, s1, en);
 }
 
 Reading Voltmeter::Read(uint8_t channel)
 {
     // Selecting the given channel of the mux.
-    mux->SetChannel(channel);
+    mux.SetChannel(channel);
     
     // Enabling the input of the mux.
-    mux->Enable();
+    mux.Enable();
     
     // Reading the voltages from the given channel
-    double v0 = adc_0->ReadVoltage(VOLTMETER_ADC_PORT_0);
-    double v1 = adc_1->ReadVoltage(VOLTMETER_ADC_PORT_1);
+    double v0 = adc_0.ReadVoltage(VOLTMETER_ADC_PORT_0);
+    double v1 = adc_1.ReadVoltage(VOLTMETER_ADC_PORT_1);
     
     // Disabling the input of the mux.
-    mux->Disable();
+    mux.Disable();
     
     return Reading(v0, v1);
 }

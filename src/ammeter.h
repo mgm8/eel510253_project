@@ -57,7 +57,17 @@
 class Ammeter: public Voltmeter
 {
     public:
+        /**
+         * \brief 
+         * 
+         * \return None
+         */
         Ammeter();
+        /**
+         * \brief 
+         * 
+         * \return None
+         */
         Ammeter(uint8_t s0, uint8_t s1, uint8_t en);
         /**
          * \brief Reads the current from the ammeter (in mA).
