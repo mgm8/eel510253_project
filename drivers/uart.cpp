@@ -56,7 +56,7 @@ UART::~UART()
 
 void UART::Init(uint16_t baudrate)
 {
-    uint16_t ubrr = (uint16_t)(F_OSC/16/baudrate-1);
+    uint16_t ubrr = (uint16_t)(2*F_OSC/16/baudrate-1);
     
     // Set baud rate
     UBRR0H = (uint8_t)(ubrr >> 8);
