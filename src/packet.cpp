@@ -61,17 +61,22 @@ Packet::~Packet()
 
 void Packet::append(Packet p)
 {
-    *this = *this + p;
+    for(uint8_t i=len; i<(len+p.len); i++)
+    {
+        payload[i] = p.payload[i-len];
+    }
+    len += p.len;
 }
 
 void Packet::append(uint8_t b)
 {
-    *this = *this + b;
+    payload[len] = b;
+    len++;
 }
 
 void Packet::append(double f)
 {
-    *this = *this + f;
+    DoubleToPayload(f);
 }
 
 void Packet::operator = (Packet p)
@@ -104,23 +109,27 @@ void Packet::operator = (double f)
 
 Packet Packet::operator + (Packet p)
 {
-    uint8_t payload_buf[PACKET_MAX_SIZE];
+    Packet pkt_buf;
     for(uint8_t i=0; i<len; i++)
     {
-        payload_buf[i] = payload[i];
+        pkt_buf.append(payload[i]);
     }
     
     for(uint8_t i=0; i<p.len; i++)
     {
-        payload_buf[len+i] = p.payload[i];
+        pkt_buf.append(p.payload[i]);
     }
     
-    return Packet(payload_buf, len + p.len);
+    return pkt_buf;
 }
 
 Packet Packet::operator + (uint8_t b)
 {
-    return *this + Packet(&b, 1);
+    Packet pkt_buf;
+    
+    pkt_buf = b;
+    
+    return *this + pkt_buf;
 }
 
 Packet Packet::operator + (double f)
@@ -159,7 +168,7 @@ void Packet::Clear()
 
 void Packet::DoubleToPayload(double f)
 {
-    if (!((f >= 0) and (f < 100)))
+    if ((f >= 0) and (f < 100))
     {
         int8_t digit_3 = -1;
         while(f >= 0)
