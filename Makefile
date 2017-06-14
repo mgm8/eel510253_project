@@ -19,7 +19,7 @@ PROGRAMMER=arduino
 
 $(TARGET): $(BUILD_DIR)/drivers.a $(BUILD_DIR)/src.a
 #	$(CXX) $^ -o $(BUILD_DIR)/$@
-	$(CXX) $(FLAGS) $(BUILD_DIR)/main.o $(BUILD_DIR)/74hc4051.o $(BUILD_DIR)/74hc4052.o $(BUILD_DIR)/adc.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/uart.o $(BUILD_DIR)/ammeter.o $(BUILD_DIR)/packet.o $(BUILD_DIR)/smart_cell.o $(BUILD_DIR)/voltmeter.o -o $(BUILD_DIR)/$@
+	$(CXX) $(FLAGS) $(BUILD_DIR)/main.o $(BUILD_DIR)/74hc4051.o $(BUILD_DIR)/74hc4052.o $(BUILD_DIR)/adc.o $(BUILD_DIR)/gpio.o $(BUILD_DIR)/uart.o $(BUILD_DIR)/ammeter.o $(BUILD_DIR)/packet.o $(BUILD_DIR)/smart_cell.o $(BUILD_DIR)/voltmeter.o $(BUILD_DIR)/switch.o -o $(BUILD_DIR)/$@
 
 $(BUILD_DIR)/drivers.a:
 	mkdir -p $(BUILD_DIR)

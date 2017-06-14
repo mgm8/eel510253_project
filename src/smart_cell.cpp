@@ -47,11 +47,23 @@ SmartCell::SmartCell()
     volt.SetPins(P2_PIN, P3_PIN, P4_PIN);
     amp.SetPins(P5_PIN, P6_PIN, P7_PIN);
     uart.Init(9600);
+    sw0.SetPin(P8_PIN);
+    sw1.SetPin(P9_PIN);
+    sw2.SetPin(P10_PIN);
+    sw3.SetPin(P11_PIN);
+    
+    sw0.Deactivate();
+    sw1.Deactivate();
+    sw2.Deactivate();
+    sw3.Deactivate();
 }
 
 SmartCell::~SmartCell()
 {
-    
+    sw0.Deactivate();
+    sw1.Deactivate();
+    sw2.Deactivate();
+    sw3.Deactivate();
 }
 
 void SmartCell::Run()

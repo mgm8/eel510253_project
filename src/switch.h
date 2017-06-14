@@ -1,5 +1,5 @@
 /*
- * smart_cell.h
+ * switch.h
  * 
  * Copyright 2017, Gabriel Mariano Marcelino <gabriel.mm8@gmail.com>
  * 
@@ -21,65 +21,48 @@
  */
 
 /**
- * \file smart_cell.h
+ * \file switch.h
  * 
- * \brief Header of the main class of the program.
+ * \brief Switch class header.
  * 
  * \author Gabriel Mariano Marcelino <gabriel.mm8@gmail.com>
  * 
  * \version 1.0
  * 
- * \date 01/06/2017
+ * \date 13/06/2017
  * 
- * \defgroup smart_cell Smart Cell
+ * \defgroup switch Switch
  * \ingroup src
  * \{ 
  */
 
-#ifndef SMART_CELL_H_
-#define SMART_CELL_H_
+#ifndef SWITCH_H_
+#define SWITCH_H_
 
-#include <drivers/uart.h>
-
-#include "voltmeter.h"
-#include "ammeter.h"
-#include "switch.h"
+#include <drivers/gpio.h>
 
 /**
- * \class SmartCell
+ * \class Switch
  * 
  * \brief 
  */
-class SmartCell
+class Switch: public GPIOAsOutput
 {
-        Voltmeter volt;     /**< . */
-        Ammeter amp;        /**< . */
-        UART uart;          /**< . */
-        Switch sw0;         /**< . */
-        Switch sw1;         /**< . */
-        Switch sw2;         /**< . */
-        Switch sw3;         /**< . */
     public:
         /**
-         * \brief 
+         * \brief Activates the switch.
          * 
          * \return None
          */
-        SmartCell();
+        void Activate();
         /**
-         * \brief 
+         * \brief Deactivates the switch.
          * 
          * \return None
          */
-        ~SmartCell();
-        /**
-         * \brief 
-         * 
-         * \return 
-         */
-        void Run();
+        void Deactivate();
 };
 
-#endif // SMART_CELL_H_
+#endif // SWITCH_H_
 
-//! \} End of smart_cell group
+//! \} End of switch group

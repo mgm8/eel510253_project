@@ -16,7 +16,7 @@ CXX=avr-g++
 LIBS=../
 FLAGS=-Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -I$(LIBS)
 
-$(TARGET).a: $(BUILD_DIR)/main.o $(BUILD_DIR)/voltmeter.o $(BUILD_DIR)/ammeter.o $(BUILD_DIR)/smart_cell.o $(BUILD_DIR)/packet.o
+$(TARGET).a: $(BUILD_DIR)/main.o $(BUILD_DIR)/voltmeter.o $(BUILD_DIR)/ammeter.o $(BUILD_DIR)/smart_cell.o $(BUILD_DIR)/packet.o $(BUILD_DIR)/switch.o
 	ar rcs $(BUILD_DIR)/$@ $^
 
 $(BUILD_DIR)/main.o: main.cpp
@@ -32,6 +32,9 @@ $(BUILD_DIR)/smart_cell.o: smart_cell.cpp smart_cell.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
 $(BUILD_DIR)/packet.o: packet.cpp packet.h
+	$(CXX) $(FLAGS) -c -o $@ $<
+
+$(BUILD_DIR)/switch.o: switch.cpp switch.h
 	$(CXX) $(FLAGS) -c -o $@ $<
 
 clean:
