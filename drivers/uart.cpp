@@ -44,7 +44,7 @@ UART::UART()
     
 }
 
-UART::UART(uint16_t baudrate)
+UART::UART(uint32_t baudrate)
 {
     this->Init(baudrate);
 }
@@ -54,7 +54,7 @@ UART::~UART()
     
 }
 
-void UART::Init(uint16_t baudrate)
+void UART::Init(uint32_t baudrate)
 {
     uint16_t ubrr = (uint16_t)(2*F_OSC/16/baudrate-1);
     

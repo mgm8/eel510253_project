@@ -66,7 +66,7 @@ class UART
          * 
          * \param baudrate is the baudrate of the UART connection.
          */
-        UART(uint16_t baudrate);
+        UART(uint32_t baudrate);
         /**
          * \brief Destructor of the UART.
          * 
@@ -80,7 +80,7 @@ class UART
          * 
          * \return none
          */
-        void Init(uint16_t baudrate);
+        void Init(uint32_t baudrate);
         /**
          * \brief Checks if something was received.
          * 
