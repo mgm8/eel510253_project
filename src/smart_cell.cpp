@@ -45,7 +45,6 @@
 SmartCell::SmartCell()
 {
     volt.SetPins(P2_PIN, P3_PIN, P4_PIN);
-    amp.SetPins(P5_PIN, P6_PIN, P7_PIN);
     uart.Init(115200);
     sw0.SetPin(P8_PIN);
     sw1.SetPin(P9_PIN);
@@ -103,6 +102,13 @@ void SmartCell::Run()
         pkt += v.r1;
         _delay_ms(100);
         
+        pkt += uint8_t(0x01);
+        pkt += amp.Read(AMMETER_CHANNEL_0);
+        _delay_ms(100);
+        pkt += uint8_t(0x01);
+        pkt += amp.Read(AMMETER_CHANNEL_1);;
+        _delay_ms(100);
+        
         uint8_t pkt_buf[PACKET_MAX_SIZE];
         pkt.get(pkt_buf);
         
@@ -111,7 +117,7 @@ void SmartCell::Run()
             uart.WriteByte(pkt_buf[i]);
         }
         
-        _delay_ms(1600);
+        _delay_ms(1400);
         
         led.Toggle();
     }

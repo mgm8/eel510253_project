@@ -43,7 +43,7 @@
 
 #include "widgets.h"
 
-#define DATA_RECEPTION_SAMPLE_RATE  1000
+#define DATA_RECEPTION_SAMPLE_RATE  500
 
 /**
  * \var 

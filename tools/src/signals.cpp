@@ -39,7 +39,6 @@
 #include <stdint.h>
 #include <vector>
 #include <string>
-#include <drivers/uart.h>
 
 #include "signals.h"
 #include "global_var.h"
@@ -109,6 +108,18 @@ void on_togglebutton1_toggled()
         widgets.switch_cell5->set_sensitive(true);
         widgets.switch_cell6->set_sensitive(true);
         widgets.switch_cell7->set_sensitive(true);
+        
+        widgets.label_voltage_cell0->set_text("0 V");
+        widgets.label_voltage_cell1->set_text("0 V");
+        widgets.label_voltage_cell2->set_text("0 V");
+        widgets.label_voltage_cell3->set_text("0 V");
+        widgets.label_voltage_cell4->set_text("0 V");
+        widgets.label_voltage_cell5->set_text("0 V");
+        widgets.label_voltage_cell6->set_text("0 V");
+        widgets.label_voltage_cell7->set_text("0 V");
+        
+        widgets.label_current_group0->set_text("0 mA");
+        widgets.label_current_group1->set_text("0 mA");
     }
 }
 
@@ -117,7 +128,7 @@ bool timer_handler()
     if (uart.isOpened())
     {
         unsigned int bytes_buf = uart.DataAvailable();
-        if (bytes_buf >= 50)
+        if (bytes_buf >= 62)
         {
             std::vector<uint8_t> pkt;
             
@@ -128,7 +139,7 @@ bool timer_handler()
             
             uart.Flush();
             
-            if ((pkt[0] == 0x7E) and (pkt[1] == 0x30))
+            if ((pkt[0] == 0x7E) and (pkt[1] == 0x3C))
             {
                 if (pkt[2] == 0x00)
                 {
@@ -217,6 +228,12 @@ bool timer_handler()
                 }
                 
                 widgets.label_voltage_cell7->set_text(receive_voltage(pkt, 45, 49));
+                
+                // Group 0 current
+                widgets.label_current_group0->set_text(receive_voltage(pkt, 51, 55, true));
+                
+                // Group 1 current
+                widgets.label_current_group1->set_text(receive_voltage(pkt, 57, 61, true));
             }
         }
     }
@@ -224,7 +241,7 @@ bool timer_handler()
 	return true;
 }
 
-static const char* receive_voltage(std::vector<uint8_t> pkt, unsigned int start, unsigned int end)
+static const char* receive_voltage(std::vector<uint8_t> pkt, unsigned int start, unsigned int end, bool current)
 {
     std::string voltage = "";
     for(unsigned int i=start;i<=end;i++)
@@ -268,7 +285,14 @@ static const char* receive_voltage(std::vector<uint8_t> pkt, unsigned int start,
                 break;
         }
     }
-    voltage += " V";
+    if (current)
+    {
+        voltage += " mA";
+    }
+    else
+    {
+        voltage += " V";
+    }
     
     return voltage.c_str();
 }

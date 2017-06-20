@@ -39,36 +39,37 @@
 #ifndef AMMETER_H_
 #define AMMETER_H_
 
-#include <drivers/74hc4052.h>
 #include <drivers/adc.h>
 
-#include "voltmeter.h"
+#define AMMETER_ADC_PORT_0      ADC_PORT_2
+#define AMMETER_ADC_PORT_1      ADC_PORT_3
 
-#define AMMETER_CH_0        _74HC4052_CH_A0
-#define AMMETER_CH_1        _74HC4052_CH_A1
-#define AMMETER_CH_2        _74HC4052_CH_A2
-#define AMMETER_CH_3        _74HC4052_CH_A3
+#define AMMETER_CHANNEL_0       0x00
+#define AMMETER_CHANNEL_1       0x01
 
 /**
  * \class Ammeter
  * 
- * \brief 
+ * \brief Ammeter class.
  */
-class Ammeter: public Voltmeter
+class Ammeter
 {
+    protected:
+        ADConverter adc_0;      /**< . */
+        ADConverter adc_1;      /**< . */
     public:
         /**
-         * \brief 
+         * \brief Object constructor.
          * 
          * \return None
          */
         Ammeter();
         /**
-         * \brief 
+         * \brief Object destructor.
          * 
          * \return None
          */
-        Ammeter(uint8_t s0, uint8_t s1, uint8_t en);
+        ~Ammeter();
         /**
          * \brief Reads the current from the ammeter (in mA).
          * 

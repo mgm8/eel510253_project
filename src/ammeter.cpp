@@ -42,14 +42,24 @@ Ammeter::Ammeter()
     
 }
 
-Ammeter::Ammeter(uint8_t s0, uint8_t s1, uint8_t en)
+Ammeter::~Ammeter()
 {
-    this->SetPins(s0, s1, en);
+    
 }
 
 double Ammeter::Read(uint8_t channel)
 {
-    return 0;
+    switch(channel)
+    {
+        case AMMETER_CHANNEL_0:
+            return adc_0.ReadVoltage(AMMETER_ADC_PORT_0);
+            break;
+        case AMMETER_CHANNEL_1:
+            return adc_1.ReadVoltage(AMMETER_ADC_PORT_1);
+            break;
+        default:
+            return 0;
+    }
 }
 
 //! \} End of ammeter implementation group

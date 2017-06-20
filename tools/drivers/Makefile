@@ -5,9 +5,10 @@ ifndef BUILD_DIR
 endif
 
 CXX=g++
+FLAGS=-std=c++11
 
 $(BUILD_DIR)/$(TARGET).o: uart.cpp uart.h
-	$(CXX) -c $< -o $@
+	$(CXX) $(FLAGS) -c $< -o $@
 
 clean:
 	rm $(BUILD_DIR)/*.o

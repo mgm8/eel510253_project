@@ -138,9 +138,14 @@ bool UART::Open(const char* device, int baudrate)
 bool UART::Close()
 {
     if (close(fd) >= 0)
+    {
+        fd = -1;
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 bool UART::isOpened()

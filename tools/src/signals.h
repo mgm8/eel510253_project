@@ -71,7 +71,7 @@ bool timer_handler();
  * 
  * \return 
  */
-static const char* receive_voltage(std::vector<uint8_t> pkt, unsigned int start, unsigned int end);
+static const char* receive_voltage(std::vector<uint8_t> pkt, unsigned int start, unsigned int end, bool current=false);
 
 #endif // SIGNALS_H_
 
